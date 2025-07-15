@@ -13,9 +13,6 @@ public class Address {
 
     // BEGIN
     @Inspect
-    public String getCity() {
-        return city;
-    }
     // END
     public String getCity() {
         return city;
@@ -23,9 +20,6 @@ public class Address {
 
     // BEGIN
     @Inspect
-    public int getPostalCode() {
-        return postalCode;
-    }
     // END
     public int getPostalCode() {
         return postalCode;

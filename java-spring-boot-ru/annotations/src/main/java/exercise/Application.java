@@ -12,8 +12,8 @@ public class Application {
         Class<?> clas = address.getClass();
         for (Method method : clas.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Inspect.class)) {
-                System.out.println(
-                        "Method getCity returns a value of type String",
+                System.out.printf(
+                        "Method %s returns a value of type %s%n",
                         method.getName(),
                         method.getReturnType().getSimpleName()
                 );
