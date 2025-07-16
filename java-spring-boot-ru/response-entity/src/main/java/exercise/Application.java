@@ -33,7 +33,7 @@ public class Application {
 
     // BEGIN
     @GetMapping("/posts")
-    public List<Post> index(
+    public ResponseEntity<List<Post>> index(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int limit
     ) {
@@ -47,11 +47,11 @@ public class Application {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Total-Count", String.valueOf(posts.size()));
 
-        return ResponseEntity
-                .ok()
+        return ResponseEntity.ok()
                 .headers(headers)
                 .body(result);
     }
+
     @PostMapping("/posts") // Создание страницы
     public ResponseEntity<Post> create(@RequestBody Post post) {
         posts.add(post);
