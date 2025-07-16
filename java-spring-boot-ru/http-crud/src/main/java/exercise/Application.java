@@ -65,7 +65,7 @@ public class Application {
         if (maybePost.isPresent()) {
             var post = maybePost.get();
             post.setId(data.getId());
-            post.setTirle(data.getTitle());
+            post.setTitle(data.getTitle());
             post.setBody(data.getBody());
             return post; // возвращаем обновлённый пост
         }
