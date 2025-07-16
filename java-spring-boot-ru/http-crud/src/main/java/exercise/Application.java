@@ -69,10 +69,8 @@ public class Application {
             post.setBody(data.getBody());
             return post; // возвращаем обновлённый пост
         }
-
         return null;
     }
-    
     @DeleteMapping("/posts/{id}") // Удаление страницы
     public void destroy(@PathVariable String id) {
         posts.removeIf(p -> p.getId().equals(id));
