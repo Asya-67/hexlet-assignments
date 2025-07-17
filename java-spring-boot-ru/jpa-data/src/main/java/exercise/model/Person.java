@@ -3,10 +3,10 @@ package exercise.model;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Table;
-import static jakarta.persistence.GenerationType.IDENTITY;
+import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 // BEGIN
 @Entity
