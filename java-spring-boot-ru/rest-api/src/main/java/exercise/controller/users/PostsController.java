@@ -21,9 +21,10 @@ public class PostsController {
 
     @GetMapping
     public List<Post> getUserPosts(@PathVariable Long id) {
+        int userId = id.intValue();
         return Data.getPosts()
                 .stream()
-                .filter(post -> post.getUserId() == id.intValue())
+                .filter(post -> post.getUserId() == userId)
                 .collect(Collectors.toList());
     }
 
