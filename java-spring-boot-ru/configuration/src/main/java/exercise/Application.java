@@ -31,8 +31,9 @@ public class Application {
 
     @GetMapping("/admins")
     public List<String> getAdmins() {
-        return userProperties.getAdmins()
-                .stream()
+        return users.stream()
+                .filter(user -> userProperties.getAdmins().contains(user.getEmail()))
+                .map(User::getName)
                 .sorted()
                 .collect(Collectors.toList());
     }
