@@ -1,14 +1,18 @@
 package exercise.model;
 
-import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.EntityListeners;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 // BEGIN
 @Entity
@@ -16,7 +20,9 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Setter
 @Getter
-class Task {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
