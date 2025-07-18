@@ -37,7 +37,19 @@ public class ProductsController {
     }
 
     // BEGIN
-    
+    @GetMapping("/{id}")
+    public Product show(@PathVariable long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+    }
+
+    @PutMapping("/{id}")
+    public Product update(@PathVariable long id, @RequestBody Product productData) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+        org.springframework.beans.BeanUtils.copyProperties(productData, product, "id");
+        return productRepository.save(product);
+    }
     // END
 
     @DeleteMapping(path = "/{id}")
