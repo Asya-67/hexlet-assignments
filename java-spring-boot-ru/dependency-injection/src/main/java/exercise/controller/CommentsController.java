@@ -57,12 +57,12 @@ public class CommentsController {
         return commentRepository.save(comment);
     }
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!commentRepository.existsById(id)) {
             throw new ResourceNotFoundException("Comment with id " + id + " not found");
         }
         commentRepository.deleteById(id);
+        return ResponseEntity.ok().build();   // 200 OK
     }
 }
 // END
