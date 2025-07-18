@@ -1,8 +1,8 @@
 package exercise.exception;
 
 // BEGIN
-public class ResourceAlreadyExistException extends RuntimeException {
-    public ResourceAlreadyExistException(String message) {
+public class ResourceAlreadyExistsException extends RuntimeException {
+    public ResourceAlreadyExistsException(String message) {
         super(message);
     }
 }
