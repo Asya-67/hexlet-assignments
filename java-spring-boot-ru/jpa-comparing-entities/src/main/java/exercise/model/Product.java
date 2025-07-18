@@ -1,5 +1,4 @@
 package exercise.model;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
