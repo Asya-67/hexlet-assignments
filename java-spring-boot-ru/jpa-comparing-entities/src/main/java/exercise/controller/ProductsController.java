@@ -37,7 +37,8 @@ public class ProductsController {
     public Product create(@RequestBody Product product) {
         boolean exists = productRepository.existsByTitleAndPrice(product.getTitle(), product.getPrice());
         if (exists) {
-            throw new ResourceAlreadyExistsException("Product with title '" + product.getTitle() + "' and price " + product.getPrice() + " already exists");
+            throw new ResourceAlreadyExistsException("Product with title '" + product.getTitle() + "' and price "
+                    + product.getPrice() + " already exists");
         }
         return productRepository.save(product);
     }
