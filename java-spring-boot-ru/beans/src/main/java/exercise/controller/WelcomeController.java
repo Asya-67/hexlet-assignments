@@ -2,6 +2,7 @@ package exercise.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import exercise.daytime.Daytime;
 
 // BEGIN
 @RestController

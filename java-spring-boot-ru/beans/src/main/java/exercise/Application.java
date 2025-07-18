@@ -3,7 +3,7 @@ package exercise;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import exercise.daytime.Daytime;
 import exercise.daytime.Day;
