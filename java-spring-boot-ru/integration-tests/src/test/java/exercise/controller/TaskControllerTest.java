@@ -3,8 +3,6 @@ package exercise.controller;
 import org.junit.jupiter.api.Test;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
-import org.instancio.Instancio;
-import org.instancio.Select;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +24,10 @@ import exercise.model.Task;
 // BEGIN
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
 // END
 class TaskControllerTest {
 
