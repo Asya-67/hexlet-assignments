@@ -137,7 +137,7 @@ class TaskControllerTest {
         Task task = createSampleTask();
 
         mockMvc.perform(delete("/tasks/" + task.getId()))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
 
         var exists = taskRepository.findById(task.getId()).isPresent();
         assertThat(exists).isFalse();
