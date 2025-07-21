@@ -17,7 +17,7 @@ import exercise.dto.CommentDTO;
 // BEGIN
 @RestController
 @RequestMapping("/posts")
-public class PostController {
+public class PostsController {
 
     @Autowired
     private PostRepository postRepository;
