@@ -22,15 +22,34 @@ public class PostsController {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     @GetMapping("")
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Post getPostById(@PathVariable long id) {
-        return postRepository.findById(id)
+    public PostDTO getPostById(@PathVariable long id) {
+        Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + " not found"));
+        PostDTO postDTO = new PostDTO();
+        postDTO.setId(post.getId());
+        postDTO.setTitle(post.getTitle());
+        postDTO.setBody(post.getBody());
+
+        List<CommentDTO> commentDTOs = commentRepository.findByPostId(post.getId())
+                .stream()
+                .map(comment -> {
+                    CommentDTO dto = new CommentDTO();
+                    dto.setId(comment.getId());
+                    dto.setBody(comment.getBody());
+                    return dto;
+                }).collect(Collectors.toList());
+
+        postDTO.setComments(commentDTOs);
+        return postDTO;
     }
 }
 // END
