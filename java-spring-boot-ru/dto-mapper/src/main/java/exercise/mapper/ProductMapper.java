@@ -32,4 +32,4 @@ public abstract class ProductMapper {
     @Mapping(source = "price", target = "cost")
     public abstract void update(ProductUpdateDTO dto, @MappingTarget Product model);
 }
- END
+//END
