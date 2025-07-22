@@ -57,8 +57,9 @@ public class ProductsController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ProductDTO update(@RequestBody ProductUpdateDTO postData, @PathVariable Long id) {
-        var product = repository.findById(id)
+        var product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+
         product.setTitle(postData.getTitle());
         product.setPrice(postData.getPrice());
 
