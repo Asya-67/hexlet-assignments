@@ -13,8 +13,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING,
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public abstract class ProductMapper {
@@ -29,9 +29,7 @@ public abstract class ProductMapper {
     @Mapping(source = "barcode", target = "vendorCode")
     public abstract ProductDTO map(Product model);
 
-    @Mapping(source = "title", target = "name")
     @Mapping(source = "price", target = "cost")
-    @Mapping(source = "vendorCode", target = "barcode")
     public abstract void update(ProductUpdateDTO dto, @MappingTarget Product model);
 }
-// END
+ END
