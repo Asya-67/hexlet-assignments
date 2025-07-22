@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import java.time.LocalDate;
 
 import exercise.model.Contact;
 import exercise.repository.ContactRepository;
@@ -28,14 +29,17 @@ public class ContactsController {
         contact.setFirstName(contactCreateDTO.getFirstName());
         contact.setLastName(contactCreateDTO.getLastName());
         contact.setPhone(contactCreateDTO.getPhone());
+        contact.setCreatedAt(LocalDate.now());
+        contact.setUpdatedAt(LocalDate.now());
 
         contactRepository.save(contact);
-        
         ContactDTO contactDTO = new ContactDTO();
         contactDTO.setId(contact.getId());
         contactDTO.setFirstName(contact.getFirstName());
         contactDTO.setLastName(contact.getLastName());
         contactDTO.setPhone(contact.getPhone());
+        contactDTO.setCreatedAt(contact.getCreatedAt());
+        contactDTO.setUpdatedAt(contact.getUpdatedAt());
 
         return contactDTO;
     }
