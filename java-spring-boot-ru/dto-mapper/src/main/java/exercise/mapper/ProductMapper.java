@@ -1,8 +1,6 @@
 package exercise.mapper;
 
 // BEGIN
-package exercise.mapper;
-
 import exercise.dto.ProductCreateDTO;
 import exercise.dto.ProductDTO;
 import exercise.dto.ProductUpdateDTO;
@@ -15,8 +13,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(
-        componentModel = MappingConstants.ComponentModel.SPRING,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public abstract class ProductMapper {
@@ -33,7 +31,7 @@ public abstract class ProductMapper {
 
     @Mapping(source = "title", target = "name")
     @Mapping(source = "price", target = "cost")
+    @Mapping(source = "vendorCode", target = "barcode")
     public abstract void update(ProductUpdateDTO dto, @MappingTarget Product model);
 }
-
 // END
