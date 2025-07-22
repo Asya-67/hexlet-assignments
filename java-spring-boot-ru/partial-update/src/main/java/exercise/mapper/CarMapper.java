@@ -25,5 +25,13 @@ public interface CarMapper {
     Car toEntity(CarCreateDTO carCreateDTO);
 
     void update(CarUpdateDTO carUpdateDTO, @MappingTarget Car car);
+
+    default CarDTO map(Car car) {
+        return toDTO(car);
+    }
+
+    default Car map(CarCreateDTO dto) {
+        return toEntity(dto);
+    }
 }
 // END
