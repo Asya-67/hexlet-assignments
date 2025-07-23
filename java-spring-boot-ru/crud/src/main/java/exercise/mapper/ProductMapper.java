@@ -14,17 +14,20 @@ import exercise.dto.CategoryDTO;
 import exercise.dto.CategoryCreateDTO;
 
 // BEGIN
-@Mapper(componentModel = "spring", uses = {ReferenceMapper.class})
+@Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    @Mapping(source = "category.id", target = "categoryId")
-    @Mapping(source = "category.name", target = "categoryName")
-    ProductDTO toDto(Product product);
+    ProductDTO map(Product product);   // из сущности в DTO
 
-    @Mapping(source = "categoryId", target = "category")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Product toEntity(ProductCreateDTO dto);
 
-    @Mapping(source = "categoryId", target = "category")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     void update(ProductCreateDTO dto, @MappingTarget Product entity);
+
 }
 // END
