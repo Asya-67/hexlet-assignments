@@ -54,7 +54,9 @@ public class ProductsController {
     @PostMapping
     public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto) {
         Product product = productMapper.toEntity(dto);
+
         product = productRepository.save(product);
+
         return productMapper.map(product);
     }
 
