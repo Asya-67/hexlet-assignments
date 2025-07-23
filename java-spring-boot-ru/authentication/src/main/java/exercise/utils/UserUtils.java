@@ -12,11 +12,21 @@ public class UserUtils {
     private UserRepository userRepository;
 
     // BEGIN
+    @Autowired
+    private PostRepository postRepository;
+
     public User getCurrentUser() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Authenticated user not found"));
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        var email = authentication.getName();
+        return userRepository.findByEmail(email).get();
+    }
+    public boolean isAuthor(long postId) {
+        var postAuthorEmail = postRepository.findById(postId).get().getAuthor().getEmail();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return postAuthorEmail.equals(authentication.getName());
     }
     // END
 

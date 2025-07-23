@@ -55,13 +55,8 @@ public class User implements BaseEntity, UserDetails {
 
     // BEGIN
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(); // Пока без ролей, пустой список прав
-    }
-
-    @Override
     public String getUsername() {
-        return email;
+        return email;  // логин у тебя — email
     }
 
     @Override
@@ -70,8 +65,14 @@ public class User implements BaseEntity, UserDetails {
     }
 
     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Если нет ролей, возвращаем пустой список
+        return new ArrayList<>();
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return true;  // Можно добавить логику, если нужно
     }
 
     @Override
