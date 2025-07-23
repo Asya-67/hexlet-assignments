@@ -15,7 +15,7 @@ public class ProductMapper {
     private final ReferenceMapper referenceMapper;
 
     // Преобразование Product в ProductDTO
-    public ProductDTO toDto(Product product) {
+    public ProductDTO map(Product product) {
         ProductDTO dto = new ProductDTO();
         dto.setId(product.getId());
         dto.setTitle(product.getTitle());
@@ -32,7 +32,7 @@ public class ProductMapper {
         Product product = new Product();
         product.setTitle(dto.getTitle());
         product.setPrice(dto.getPrice());
-        product.setCategory(referenceMapper.toCategory(dto.getCategoryId()));
+        product.setCategory(referenceMapper.resolveCategory(dto.getCategoryId()));
         return product;
     }
 
@@ -45,7 +45,7 @@ public class ProductMapper {
             product.setPrice(dto.getPrice().get());
         }
         if (dto.getCategoryId() != null && dto.getCategoryId().isPresent()) {
-            product.setCategory(referenceMapper.toCategory(dto.getCategoryId().get()));
+            product.setCategory(referenceMapper.resolveCategory(dto.getCategoryId().get()));
         }
     }
 }

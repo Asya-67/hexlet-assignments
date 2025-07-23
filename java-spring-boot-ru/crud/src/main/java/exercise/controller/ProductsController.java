@@ -44,7 +44,7 @@ public class ProductsController {
     @GetMapping
     public List<ProductDTO> getAll() {
         return productRepository.findAll().stream()
-                .map(productMapper::toDto)
+                .map(productMapper::map)
                 .toList();
     }
 
@@ -52,14 +52,14 @@ public class ProductsController {
     public ProductDTO getById(@PathVariable Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return productMapper.toDto(product);
+        return productMapper.map(product);
     }
 
     @PostMapping
     public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto) {
         Product product = productMapper.toEntity(dto);
         product = productRepository.save(product);
-        return productMapper.toDto(product);
+        return productMapper.map(product);
     }
 
     @PutMapping("/{id}")
@@ -68,16 +68,7 @@ public class ProductsController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         productMapper.updateEntity(dto, product);
         product = productRepository.save(product);
-        return productMapper.toDto(product);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        productRepository.deleteById(id);
+        return productMapper.map(product);
     }
     // END
 }
