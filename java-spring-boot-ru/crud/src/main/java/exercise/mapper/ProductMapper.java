@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;;
+import org.mapstruct.ReportingPolicy;
 import exercise.dto.CategoryDTO;
 import exercise.dto.CategoryCreateDTO;
 
