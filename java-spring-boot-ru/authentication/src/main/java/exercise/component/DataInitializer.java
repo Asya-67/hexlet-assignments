@@ -14,21 +14,18 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DataInitializer implements ApplicationRunner {
 
-
-    @Autowired
     private final UserRepository userRepository;
-
-    @Autowired
     private final UserMapper userMapper;
-
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        var userData = new UserCreateDTO();
-        userData.setName("hexlet");
-        userData.setEmail("hexlet@example.com");
-        userData.setPasswordDigest("123");
-        var user = userMapper.map(userData);
-        userRepository.save(user);
+        if (userRepository.findByEmail("hexlet@example.com").isEmpty()) {
+            var userData = new UserCreateDTO();
+            userData.setName("hexlet");
+            userData.setEmail("hexlet@example.com");
+            userData.setPasswordDigest("123"); // raw password, потом захешируется
+            var user = userMapper.map(userData);
+            userRepository.save(user);
+        }
     }
 }

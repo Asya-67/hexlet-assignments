@@ -56,7 +56,7 @@ public class User implements BaseEntity, UserDetails {
     // BEGIN
     @Override
     public String getUsername() {
-        return email;  // логин у тебя — email
+        return email;
     }
 
     @Override
@@ -66,13 +66,12 @@ public class User implements BaseEntity, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Если нет ролей, возвращаем пустой список
         return new ArrayList<>();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;  // Можно добавить логику, если нужно
+        return true;
     }
 
     @Override
@@ -89,5 +88,5 @@ public class User implements BaseEntity, UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    // END
+// END
 }

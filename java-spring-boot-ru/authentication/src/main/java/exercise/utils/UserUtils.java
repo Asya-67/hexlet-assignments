@@ -22,10 +22,15 @@ public class UserUtils {
             return null;
         }
         var email = authentication.getName();
-        return userRepository.findByEmail(email).get();
+        return userRepository.findByEmail(email).orElse(null);
     }
+
     public boolean isAuthor(long postId) {
-        var postAuthorEmail = articleRepository.findById(postId).get().getAuthor().getEmail();
+        var article = articleRepository.findById(postId);
+        if (article.isEmpty()) {
+            return false;
+        }
+        var postAuthorEmail = article.get().getAuthor().getEmail();
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         return postAuthorEmail.equals(authentication.getName());
     }
