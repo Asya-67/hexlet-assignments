@@ -47,11 +47,12 @@ public class ProductsController {
     private ProductSpecification productSpecification;
 
     @GetMapping
-    public List<ProductDto> index(@ModelAttribute ProductFilterDto dto,
-                                  @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
+    public List<ProductDTO> index(
+            @ModelAttribute ProductParamsDTO dto,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 10) Pageable pageable) {
         Page<Product> page = productRepository.findAll(productSpecification.build(dto), pageable);
         return page.stream()
-                .map(ProductDto::new)
+                .map(productMapper::map)
                 .toList();
     }
     // END
