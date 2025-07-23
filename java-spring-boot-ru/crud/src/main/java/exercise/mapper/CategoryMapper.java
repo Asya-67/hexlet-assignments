@@ -11,7 +11,10 @@ import org.mapstruct.ReportingPolicy;
 // BEGIN
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
+
     CategoryDTO toDto(Category category);
+
+    @Mapping(target = "products", ignore = true)
     Category toEntity(CategoryDTO categoryDto);
 }
 // END

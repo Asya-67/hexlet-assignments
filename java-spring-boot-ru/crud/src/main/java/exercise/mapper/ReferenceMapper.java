@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import exercise.model.BaseEntity;
 import jakarta.persistence.EntityManager;
-import org.mapstruct.Named;
+import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import exercise.repository.CategoryRepository;
+import exercise.model.Category;
 
 // BEGIN
 @Component
