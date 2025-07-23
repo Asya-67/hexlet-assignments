@@ -28,8 +28,6 @@ public abstract class BookMapper {
         @Mapping(target = "author", source = "authorId")
         public abstract Book fromCreateDto(BookCreateDTO dto);
 
-        @Mapping(target = "author", source = "authorId")
-        public abstract void update(BookUpdateDTO dto, @MappingTarget Book model);
     // END
 
     @Mapping(target = "author", source = "authorId")

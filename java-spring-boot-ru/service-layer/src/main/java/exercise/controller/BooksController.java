@@ -37,7 +37,7 @@ public class BooksController {
     public BookDTO getById(@PathVariable Long id) {
         try {
             return bookService.getById(id);
-        } catch (NotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
         }
     }

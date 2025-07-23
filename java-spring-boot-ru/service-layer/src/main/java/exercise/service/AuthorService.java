@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.stream.Collectors;
 import org.springframework.web.server.ResponseStatusException;
+import exercise.model.Author;
+import exercise.model.Book;
+import exercise.repository.BookRepository;
 
 import java.util.List;
 

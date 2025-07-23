@@ -23,7 +23,6 @@ public abstract class AuthorMapper {
 
         public abstract Author fromCreateDto(AuthorCreateDTO dto);
 
-        public abstract void update(AuthorUpdateDTO dto, @MappingTarget Author model);
     // END
 
     public abstract void update(AuthorUpdateDTO dto, @MappingTarget Author model);
