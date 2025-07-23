@@ -43,48 +43,41 @@ public class ProductsController {
 
     @GetMapping
     public List<ProductDTO> getAll() {
-        return productRepository.findAll()
-                .stream()
+        return productRepository.findAll().stream()
                 .map(productMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public ProductDTO getOne(@PathVariable Long id) {
+    public ProductDTO getById(@PathVariable Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return productMapper.toDto(product);
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> create(@RequestBody ProductCreateDTO dto) {
-        try {
-            Product product = productMapper.toEntity(dto);
-            Product saved = productRepository.save(product);
-            return new ResponseEntity<>(productMapper.toDto(saved), HttpStatus.CREATED);
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid category ID");
-        }
+    public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto) {
+        Product product = productMapper.toEntity(dto);
+        product = productRepository.save(product);
+        return productMapper.toDto(product);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO update(@PathVariable Long id, @RequestBody ProductCreateDTO dto) {
+    public ProductDTO update(@PathVariable Long id, @Valid @RequestBody ProductUpdateDTO dto) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
-
-        try {
-            productMapper.update(dto, product);
-            return productMapper.toDto(productRepository.save(product));
-        } catch (ResponseStatusException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid category ID");
-        }
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        productMapper.updateEntity(dto, product);
+        product = productRepository.save(product);
+        return productMapper.toDto(product);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
-        productRepository.delete(product);
+        if (!productRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        productRepository.deleteById(id);
     }
     // END
 }

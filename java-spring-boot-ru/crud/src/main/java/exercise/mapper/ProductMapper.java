@@ -14,20 +14,45 @@ import exercise.dto.CategoryDTO;
 import exercise.dto.CategoryCreateDTO;
 
 // BEGIN
-@Mapper(componentModel = "spring")
-public interface ProductMapper {
+@Component
+@RequiredArgsConstructor
+public class ProductMapper {
 
-    ProductDTO map(Product product);   // из сущности в DTO
+    private final ReferenceMapper referenceMapper;
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    Product toEntity(ProductCreateDTO dto);
+    // Преобразование Product в ProductDTO
+    public ProductDTO toDto(Product product) {
+        ProductDTO dto = new ProductDTO();
+        dto.setId(product.getId());
+        dto.setTitle(product.getTitle());
+        dto.setPrice(product.getPrice());
+        dto.setCategoryId(product.getCategory().getId());
+        dto.setCategoryName(product.getCategory().getName());
+        dto.setCreatedAt(product.getCreatedAt());
+        dto.setUpdatedAt(product.getUpdatedAt());
+        return dto;
+    }
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    void update(ProductCreateDTO dto, @MappingTarget Product entity);
+    // Преобразование ProductCreateDTO в Product
+    public Product toEntity(ProductCreateDTO dto) {
+        Product product = new Product();
+        product.setTitle(dto.getTitle());
+        product.setPrice(dto.getPrice());
+        product.setCategory(referenceMapper.toCategory(dto.getCategoryId()));
+        return product;
+    }
 
+    // Обновление Product из ProductUpdateDTO
+    public void updateEntity(ProductUpdateDTO dto, Product product) {
+        if (dto.getTitle() != null && dto.getTitle().isPresent()) {
+            product.setTitle(dto.getTitle().get());
+        }
+        if (dto.getPrice() != null && dto.getPrice().isPresent()) {
+            product.setPrice(dto.getPrice().get());
+        }
+        if (dto.getCategoryId() != null && dto.getCategoryId().isPresent()) {
+            product.setCategory(referenceMapper.toCategory(dto.getCategoryId().get()));
+        }
+    }
 }
 // END
