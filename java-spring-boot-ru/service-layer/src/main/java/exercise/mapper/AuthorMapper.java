@@ -19,20 +19,11 @@ import org.mapstruct.MappingTarget;
 public abstract class AuthorMapper {
 
     // BEGIN
-    @Mapper(
-            uses = {JsonNullableMapper.class, ReferenceMapper.class},
-            nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-            componentModel = MappingConstants.ComponentModel.SPRING,
-            unmappedTargetPolicy = ReportingPolicy.IGNORE
-    )
-    public abstract class AuthorMapper {
-
         public abstract AuthorDTO toDto(Author model);
 
         public abstract Author fromCreateDto(AuthorCreateDTO dto);
 
         public abstract void update(AuthorUpdateDTO dto, @MappingTarget Author model);
-    }
     // END
 
     public abstract void update(AuthorUpdateDTO dto, @MappingTarget Author model);

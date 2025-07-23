@@ -20,14 +20,6 @@ import org.mapstruct.ReportingPolicy;
 public abstract class BookMapper {
 
     // BEGIN
-    @Mapper(
-            uses = {JsonNullableMapper.class, ReferenceMapper.class},
-            nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-            componentModel = MappingConstants.ComponentModel.SPRING,
-            unmappedTargetPolicy = ReportingPolicy.IGNORE
-    )
-    public abstract class BookMapper {
-
         @Mapping(target = "authorId", source = "author.id")
         @Mapping(target = "authorFirstName", source = "author.firstName")
         @Mapping(target = "authorLastName", source = "author.lastName")
@@ -38,7 +30,6 @@ public abstract class BookMapper {
 
         @Mapping(target = "author", source = "authorId")
         public abstract void update(BookUpdateDTO dto, @MappingTarget Book model);
-    }
     // END
 
     @Mapping(target = "author", source = "authorId")

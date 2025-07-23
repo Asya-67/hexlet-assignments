@@ -8,6 +8,9 @@ import exercise.mapper.AuthorMapper;
 import exercise.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
+import org.springframework.web.server.ResponseStatusException;
+import some.package.NotFoundException; // если у тебя есть такой класс
 
 import java.util.List;
 

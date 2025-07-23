@@ -8,6 +8,10 @@ import exercise.mapper.BookMapper;
 import exercise.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
+import org.springframework.web.server.ResponseStatusException;
+import some.package.NotFoundException;
+
 
 import java.util.List;
 
