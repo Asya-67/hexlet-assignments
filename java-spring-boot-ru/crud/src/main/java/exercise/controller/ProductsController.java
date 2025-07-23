@@ -25,6 +25,8 @@ import exercise.model.Product;
 import org.springframework.web.server.ResponseStatusException;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+import org.springframework.http.ResponseEntity;
+
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
