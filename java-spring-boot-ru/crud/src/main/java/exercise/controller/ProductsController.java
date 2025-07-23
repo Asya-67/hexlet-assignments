@@ -52,14 +52,15 @@ public class ProductsController {
     }
 
     @PostMapping
-    public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto) {
+    public ResponseEntity<ProductDTO> create(@Valid @RequestBody ProductCreateDTO dto) {
         Long categoryId = dto.getCategoryId();
         if (categoryId == null || !categoryRepository.existsById(categoryId)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category does not exist");
         }
         Product product = productMapper.toEntity(dto);
         product = productRepository.save(product);
-        return productMapper.map(product);
+        ProductDTO productDTO = productMapper.map(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
     }
 
     @PutMapping("/{id}")
