@@ -15,6 +15,7 @@ public abstract class ReferenceMapper {
     @Autowired
     protected EntityManager entityManager;
 
+    @Named("resolve")
     public <T extends BaseEntity> T resolve(Long id, @TargetType Class<T> type) {
         if (id == null) {
             return null;

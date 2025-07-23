@@ -23,6 +23,8 @@ import exercise.repository.ProductRepository;
 import jakarta.validation.Valid;
 import exercise.repository.CategoryRepository;
 import exercise.model.Product;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/products")
