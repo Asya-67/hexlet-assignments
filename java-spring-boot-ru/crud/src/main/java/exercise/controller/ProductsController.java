@@ -22,9 +22,7 @@ import exercise.repository.ProductRepository;
 import jakarta.validation.Valid;
 import exercise.repository.CategoryRepository;
 import exercise.model.Product;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.ResponseStatusException;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 @RestController
 @RequestMapping("/products")
@@ -54,7 +52,7 @@ public class ProductsController {
 
     @PostMapping
     public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto) {
-        Long categoryId = dto.getCategoryId().orElse(null);
+        Long categoryId = dto.getCategoryId();  // Здесь исправлено
         if (categoryId == null || !categoryRepository.existsById(categoryId)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category does not exist");
         }
@@ -68,7 +66,7 @@ public class ProductsController {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        Long categoryId = dto.getCategoryId().orElse(null);
+        Long categoryId = dto.getCategoryId();  // Здесь исправлено
         if (categoryId == null || !categoryRepository.existsById(categoryId)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category does not exist");
         }
