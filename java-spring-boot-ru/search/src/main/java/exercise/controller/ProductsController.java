@@ -41,14 +41,13 @@ public class ProductsController {
     @Autowired
     private ProductSpecification productSpecification;
 
-    @GetMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public Page<ProductDTO> index(ProductParamsDTO params,
-                                  @RequestParam(defaultValue = "1") int page) {
-        var spec = productSpecification.build(params);
-        var pageable = PageRequest.of(page - 1, 10);
-        var products = productRepository.findAll(spec, pageable);
-        return products.map(productMapper::map);
+    @GetMapping
+    public List<ProductDto> index(@ModelAttribute ProductFilterDto dto,
+                                  @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<Product> page = productRepository.findAll(productSpecification.build(dto), pageable);
+        return page.stream()
+                .map(ProductDto::new)
+                .toList();
     }
     // END
 
