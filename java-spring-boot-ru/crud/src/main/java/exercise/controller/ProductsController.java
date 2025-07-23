@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 import exercise.repository.CategoryRepository;
 import exercise.model.Product;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/products")
@@ -33,7 +34,6 @@ public class ProductsController {
     @Autowired
     private ProductMapper productMapper;
 
-    // BEGIN
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -74,5 +74,4 @@ public class ProductsController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         productRepository.delete(product);
     }
-    // END
 }
