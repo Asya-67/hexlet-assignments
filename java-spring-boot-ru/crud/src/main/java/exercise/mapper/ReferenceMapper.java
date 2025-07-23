@@ -9,6 +9,7 @@ import exercise.model.BaseEntity;
 import jakarta.persistence.EntityManager;
 
 // BEGIN
+
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public class ReferenceMapper {
 
