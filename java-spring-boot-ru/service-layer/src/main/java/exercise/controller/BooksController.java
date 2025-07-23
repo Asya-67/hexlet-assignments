@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import java.util.stream.Collectors;
 import org.springframework.web.server.ResponseStatusException;
-import some.package.NotFoundException;
 
 
 @RestController
