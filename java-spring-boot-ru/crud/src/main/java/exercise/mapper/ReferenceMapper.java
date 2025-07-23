@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import exercise.model.BaseEntity;
 import jakarta.persistence.EntityManager;
+import org.mapstruct.Named;
 
 // BEGIN
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class ReferenceMapper {
-
     @Autowired
     protected EntityManager entityManager;
 
