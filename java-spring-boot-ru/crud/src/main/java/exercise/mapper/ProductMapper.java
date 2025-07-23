@@ -10,17 +10,15 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
-import exercise.model.Category;
 
 // BEGIN
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = ReferenceMapper.class,
+        uses = {ReferenceMapper.class, JsonNullableMapper.class},
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface ProductMapper {
-
     @Mapping(source = "categoryId", target = "category")
     Product map(ProductCreateDTO dto);
 
@@ -29,6 +27,5 @@ public interface ProductMapper {
     ProductDTO map(Product model);
 
     void update(ProductUpdateDTO dto, @MappingTarget Product product);
-
 }
 // END
