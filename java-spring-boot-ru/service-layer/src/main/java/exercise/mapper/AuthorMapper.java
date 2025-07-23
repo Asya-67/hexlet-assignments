@@ -19,10 +19,12 @@ import org.mapstruct.MappingTarget;
 public abstract class AuthorMapper {
 
     // BEGIN
-        public abstract AuthorDTO toDto(Author model);
+    public abstract AuthorDTO toDto(Author model);
 
-        public abstract Author fromCreateDto(AuthorCreateDTO dto);
-
+    public AuthorDTO map(Author model) {
+        return toDto(model);
+    }
+    public abstract Author fromCreateDto(AuthorCreateDTO dto);
     // END
 
     public abstract void update(AuthorUpdateDTO dto, @MappingTarget Author model);
