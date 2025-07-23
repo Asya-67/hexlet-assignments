@@ -70,5 +70,14 @@ public class ProductsController {
         product = productRepository.save(product);
         return productMapper.map(product);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        productRepository.deleteById(id);
+    }
     // END
 }

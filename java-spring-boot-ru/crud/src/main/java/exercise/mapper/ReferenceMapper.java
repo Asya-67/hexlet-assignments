@@ -12,9 +12,9 @@ public class ReferenceMapper {
 
     private final CategoryRepository categoryRepository;
 
-    public Category toCategory(Long id) {
+    public Category resolveCategory(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Category not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category not found"));
     }
 }
 // END
