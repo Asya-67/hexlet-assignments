@@ -26,6 +26,11 @@ import exercise.exception.ResourceNotFoundException;
 import exercise.repository.ProductRepository;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import exercise.dto.ProductFilterDto;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 @RestController
