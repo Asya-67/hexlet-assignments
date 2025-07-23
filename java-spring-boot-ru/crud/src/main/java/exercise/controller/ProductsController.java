@@ -82,6 +82,5 @@ public class ProductsController {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         productRepository.delete(product);
     }
-}
     // END
 }
