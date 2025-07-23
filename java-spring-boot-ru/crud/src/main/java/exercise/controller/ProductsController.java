@@ -22,6 +22,7 @@ import exercise.exception.ResourceNotFoundException;
 import exercise.repository.ProductRepository;
 import jakarta.validation.Valid;
 import exercise.repository.CategoryRepository;
+import exercise.model.Product;
 
 @RestController
 @RequestMapping("/products")
@@ -67,11 +68,12 @@ public class ProductsController {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
 
-        if (!categoryRepository.existsById(dto.getCategoryId())) {
+        Long categoryId = dto.getCategoryId().orElse(null);
+        if (categoryId != null && !categoryRepository.existsById(categoryId)) {
             throw new IllegalArgumentException("Category not found");
         }
 
-        productMapper.update(product, dto);
+        productMapper.update(dto, product);
         productRepository.save(product);
         return productMapper.map(product);
     }
