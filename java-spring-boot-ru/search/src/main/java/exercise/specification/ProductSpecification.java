@@ -12,10 +12,14 @@ public class ProductSpecification {
 
     public Specification<Product> build(ProductParamsDTO params) {
         return withCategoryId(params.getCategoryId())
-                .and(withPriceGt(params.getPriceGt()))
-                .and(withPriceLt(params.getPriceLt()))
-                .and(withRatingGt(params.getRatingGt()))
+                .and(withPriceGt(convertToDouble(params.getPriceGt())))
+                .and(withPriceLt(convertToDouble(params.getPriceLt())))
+                .and(withRatingGt(convertToDouble(params.getRatingGt())))
                 .and(withTitleContains(params.getTitleCont()));
+    }
+
+    private Double convertToDouble(Integer value) {
+        return value == null ? null : value.doubleValue();
     }
 
     private Specification<Product> withCategoryId(Long categoryId) {
