@@ -53,10 +53,12 @@ public class ProductsController {
 
     @PostMapping
     public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto) {
+        // Проверяем, что категория существует
+        if (!categoryRepository.existsById(dto.getCategoryId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category does not exist");
+        }
         Product product = productMapper.toEntity(dto);
-
         product = productRepository.save(product);
-
         return productMapper.map(product);
     }
 
@@ -64,6 +66,12 @@ public class ProductsController {
     public ProductDTO update(@PathVariable Long id, @Valid @RequestBody ProductUpdateDTO dto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // Проверяем категорию на существование
+        if (!categoryRepository.existsById(dto.getCategoryId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category does not exist");
+        }
+
         productMapper.updateEntity(dto, product);
         product = productRepository.save(product);
         return productMapper.map(product);
