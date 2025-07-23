@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import java.util.stream.Collectors;
 import org.springframework.web.server.ResponseStatusException;
-
+import exercise.exception.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/books")
@@ -46,7 +46,7 @@ public class BooksController {
     public BookDTO create(@Valid @RequestBody BookCreateDTO dto) {
         try {
             return bookService.create(dto);
-        } catch (NotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             // Автор с таким id не найден
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author not found");
         }
@@ -55,7 +55,7 @@ public class BooksController {
     public BookDTO update(@PathVariable Long id, @Valid @RequestBody BookUpdateDTO dto) {
         try {
             return bookService.update(id, dto);
-        } catch (NotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             // Книга или автор не найдены
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book or Author not found");
         }
@@ -65,7 +65,7 @@ public class BooksController {
     public void delete(@PathVariable Long id) {
         try {
             bookService.delete(id);
-        } catch (NotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
         }
     }
