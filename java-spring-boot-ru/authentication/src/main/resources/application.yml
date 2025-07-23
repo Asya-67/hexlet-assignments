@@ -1,0 +1,22 @@
+---
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  output:
+    ansi:
+      enabled: always
+
+# BEGIN
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+
+  rsa:
+    public-key: classpath:certs/public.pem
+    private-key: classpath:certs/private.pem
+# END
