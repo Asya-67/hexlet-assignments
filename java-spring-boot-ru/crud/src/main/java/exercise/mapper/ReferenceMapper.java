@@ -10,17 +10,15 @@ import jakarta.persistence.EntityManager;
 import org.mapstruct.Named;
 
 // BEGIN
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class ReferenceMapper {
-    @Autowired
-    protected EntityManager entityManager;
+@Component
+@RequiredArgsConstructor
+public class ReferenceMapper {
 
-    @Named("resolve")
-    public <T extends BaseEntity> T resolve(Long id, @TargetType Class<T> type) {
-        if (id == null) {
-            return null;
-        }
-        return entityManager.find(type, id);
+    private final CategoryRepository categoryRepository;
+
+    public Category resolveCategory(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category not found"));
     }
 }
 // END

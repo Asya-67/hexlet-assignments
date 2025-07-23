@@ -39,58 +39,53 @@ public class ProductsController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
+
     @GetMapping
-    public List<ProductDTO> getAll() {
-        return productRepository.findAll().stream()
-                .map(productMapper::map)
-                .toList();
+    public List<ProductDto> getAll() {
+        return productRepository.findAll()
+                .stream()
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ProductDTO getById(@PathVariable long id) {
+    public ProductDto getOne(@PathVariable Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-        return productMapper.map(product);
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        return productMapper.toDto(product);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductDTO create(@Valid @RequestBody ProductCreateDTO dto) {
-        if (!categoryRepository.existsById(dto.getCategoryId())) {
-            throw new IllegalArgumentException("Category not found");
+    public ResponseEntity<ProductDto> create(@RequestBody ProductCreateDto dto) {
+        try {
+            Product product = productMapper.toEntity(dto);
+            Product saved = productRepository.save(product);
+            return new ResponseEntity<>(productMapper.toDto(saved), HttpStatus.CREATED);
+        } catch (ResponseStatusException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid category ID");
         }
-
-        Product product = productMapper.map(dto);
-        productRepository.save(product);
-        return productMapper.map(product);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO update(@PathVariable long id, @Valid @RequestBody ProductUpdateDTO dto) {
+    public ProductDto update(@PathVariable Long id, @RequestBody ProductCreateDto dto) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
 
-        Long categoryId = dto.getCategoryId().orElse(null);
-        if (categoryId != null && !categoryRepository.existsById(categoryId)) {
-            throw new IllegalArgumentException("Category not found");
+        try {
+            productMapper.update(dto, product);
+            return productMapper.toDto(productRepository.save(product));
+        } catch (ResponseStatusException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid category ID");
         }
-
-        productMapper.update(dto, product);
-        productRepository.save(product);
-        return productMapper.map(product);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable long id) {
+    public void delete(@PathVariable Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
         productRepository.delete(product);
-    }
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
     }
     // END
 }

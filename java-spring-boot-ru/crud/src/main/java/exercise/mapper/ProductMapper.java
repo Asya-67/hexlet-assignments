@@ -12,21 +12,16 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 // BEGIN
-@Mapper(
-        componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {ReferenceMapper.class, JsonNullableMapper.class},
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
-)
+@Mapper(componentModel = "spring", uses = {ReferenceMapper.class})
 public interface ProductMapper {
-
-    @Mapping(source = "categoryId", target = "category", qualifiedByName = "resolve")
-    Product map(ProductCreateDTO dto);
 
     @Mapping(source = "category.id", target = "categoryId")
     @Mapping(source = "category.name", target = "categoryName")
-    ProductDTO map(Product product);
+    ProductDto toDto(Product product);
 
-    void update(ProductUpdateDTO dto, @MappingTarget Product product);
+    @Mapping(source = "categoryId", target = "category")
+    Product toEntity(ProductCreateDto productCreateDto);
+
+    void update(ProductCreateDto dto, @MappingTarget Product entity);
 }
 // END

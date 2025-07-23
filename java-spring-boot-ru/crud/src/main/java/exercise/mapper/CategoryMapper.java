@@ -9,13 +9,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 // BEGIN
-@Mapper(
-        componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
-)
+@Mapper(componentModel = "spring")
 public interface CategoryMapper {
-    CategoryDTO map(Category category);
-    Category map(CategoryCreateDTO dto);
+    CategoryDto toDto(Category category);
+    Category toEntity(CategoryDto categoryDto);
 }
 // END
