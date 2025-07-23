@@ -30,6 +30,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import exercise.model.Product;
 
 
 @RestController
@@ -51,7 +52,7 @@ public class ProductsController {
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 10) Pageable pageable) {
         Page<Product> page = productRepository.findAll(productSpecification.build(dto), pageable);
         return page.stream()
-                .map(productMapper::map)
+                .map(product -> productMapper.map(product))
                 .toList();
     }
     // END
