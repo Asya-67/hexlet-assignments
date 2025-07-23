@@ -85,5 +85,10 @@ public class ProductsController {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         productRepository.delete(product);
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
     // END
 }

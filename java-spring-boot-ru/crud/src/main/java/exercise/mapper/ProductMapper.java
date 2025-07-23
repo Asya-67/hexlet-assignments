@@ -19,12 +19,13 @@ import org.mapstruct.ReportingPolicy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface ProductMapper {
-    @Mapping(source = "categoryId", target = "category")
+
+    @Mapping(source = "categoryId", target = "category", qualifiedByName = "resolve")
     Product map(ProductCreateDTO dto);
 
     @Mapping(source = "category.id", target = "categoryId")
     @Mapping(source = "category.name", target = "categoryName")
-    ProductDTO map(Product model);
+    ProductDTO map(Product product);
 
     void update(ProductUpdateDTO dto, @MappingTarget Product product);
 }

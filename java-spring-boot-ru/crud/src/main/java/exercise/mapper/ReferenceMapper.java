@@ -9,14 +9,16 @@ import exercise.model.BaseEntity;
 import jakarta.persistence.EntityManager;
 
 // BEGIN
-
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public class ReferenceMapper {
+public abstract class ReferenceMapper {
 
     @Autowired
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public <T extends BaseEntity> T resolve(Long id, @TargetType Class<T> type) {
+        if (id == null) {
+            return null;
+        }
         return entityManager.find(type, id);
     }
 }
