@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import exercise.exception.ResourceNotFoundException;
 import exercise.repository.TaskRepository;
 import jakarta.validation.Valid;
+import exercise.model.Task;
+import exercise.model.User;
 
 @RestController
 @RequestMapping("/tasks")
