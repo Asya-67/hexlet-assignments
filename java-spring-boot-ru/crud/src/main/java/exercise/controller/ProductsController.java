@@ -25,6 +25,7 @@ import exercise.repository.CategoryRepository;
 import exercise.model.Product;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.ResponseEntity;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
@@ -39,11 +40,8 @@ public class ProductsController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
-
     @GetMapping
-    public List<ProductDto> getAll() {
+    public List<ProductDTO> getAll() {
         return productRepository.findAll()
                 .stream()
                 .map(productMapper::toDto)
@@ -51,14 +49,14 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public ProductDto getOne(@PathVariable Long id) {
+    public ProductDTO getOne(@PathVariable Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
         return productMapper.toDto(product);
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> create(@RequestBody ProductCreateDto dto) {
+    public ResponseEntity<ProductDTO> create(@RequestBody ProductCreateDTO dto) {
         try {
             Product product = productMapper.toEntity(dto);
             Product saved = productRepository.save(product);
@@ -69,7 +67,7 @@ public class ProductsController {
     }
 
     @PutMapping("/{id}")
-    public ProductDto update(@PathVariable Long id, @RequestBody ProductCreateDto dto) {
+    public ProductDTO update(@PathVariable Long id, @RequestBody ProductCreateDTO dto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
 

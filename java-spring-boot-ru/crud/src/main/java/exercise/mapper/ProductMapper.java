@@ -10,8 +10,8 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;;
-import exercise.dto.CategoryDto;
-import exercise.dto.CategoryCreateDto;
+import exercise.dto.CategoryDTO;
+import exercise.dto.CategoryCreateDTO;
 
 // BEGIN
 @Mapper(componentModel = "spring", uses = {ReferenceMapper.class})
@@ -19,12 +19,12 @@ public interface ProductMapper {
 
     @Mapping(source = "category.id", target = "categoryId")
     @Mapping(source = "category.name", target = "categoryName")
-    ProductDto toDto(Product product);
+    ProductDTO toDto(Product product);
 
     @Mapping(source = "categoryId", target = "category")
-    Product toEntity(ProductCreateDto dto);
+    Product toEntity(ProductCreateDTO dto);
 
     @Mapping(source = "categoryId", target = "category")
-    void update(ProductCreateDto dto, @MappingTarget Product entity);
+    void update(ProductCreateDTO dto, @MappingTarget Product entity);
 }
 // END
