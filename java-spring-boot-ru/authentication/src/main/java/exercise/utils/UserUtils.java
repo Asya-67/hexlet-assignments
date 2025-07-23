@@ -5,6 +5,7 @@ import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import exercise.repository.ArticleRepository;
 
 @Component
 public class UserUtils {
@@ -24,7 +25,7 @@ public class UserUtils {
         return userRepository.findByEmail(email).get();
     }
     public boolean isAuthor(long postId) {
-        var postAuthorEmail = postRepository.findById(postId).get().getAuthor().getEmail();
+        var postAuthorEmail = articleRepository.findById(postId).get().getAuthor().getEmail();
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         return postAuthorEmail.equals(authentication.getName());
     }
