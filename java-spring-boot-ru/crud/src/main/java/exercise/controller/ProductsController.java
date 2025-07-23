@@ -26,6 +26,7 @@ import exercise.model.Product;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.ResponseEntity;
 import java.util.stream.Collectors;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/products")

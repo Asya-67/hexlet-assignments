@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import exercise.repository.CategoryRepository;
 import exercise.model.Category;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 // BEGIN
 @Component
