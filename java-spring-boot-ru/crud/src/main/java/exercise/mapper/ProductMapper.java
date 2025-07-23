@@ -10,6 +10,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
+import exercise.model.Category;
 
 // BEGIN
 @Mapper(

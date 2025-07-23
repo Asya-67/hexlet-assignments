@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import exercise.exception.ResourceNotFoundException;
 import exercise.repository.ProductRepository;
 import jakarta.validation.Valid;
+import exercise.repository.CategoryRepository;
 
 @RestController
 @RequestMapping("/products")
