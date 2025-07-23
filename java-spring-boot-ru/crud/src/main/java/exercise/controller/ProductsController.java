@@ -18,15 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import exercise.exception.ResourceNotFoundException;
 import exercise.repository.ProductRepository;
 import jakarta.validation.Valid;
 import exercise.repository.CategoryRepository;
 import exercise.model.Product;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.http.ResponseEntity;
-import java.util.stream.Collectors;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/products")
