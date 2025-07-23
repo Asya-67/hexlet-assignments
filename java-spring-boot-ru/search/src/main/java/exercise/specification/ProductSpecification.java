@@ -14,7 +14,7 @@ public class ProductSpecification {
         return withCategoryId(params.getCategoryId())
                 .and(withPriceGt(convertToDouble(params.getPriceGt())))
                 .and(withPriceLt(convertToDouble(params.getPriceLt())))
-                .and(withRatingGt(convertToDouble(params.getRatingGt())))
+                .and(withRatingGt(params.getRatingGt()))  // без convertToDouble!
                 .and(withTitleContains(params.getTitleCont()));
     }
 
