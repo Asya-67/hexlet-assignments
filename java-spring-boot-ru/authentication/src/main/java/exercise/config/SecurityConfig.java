@@ -19,6 +19,7 @@ import exercise.service.CustomUserDetailsService;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 // BEGIN
 @Configuration

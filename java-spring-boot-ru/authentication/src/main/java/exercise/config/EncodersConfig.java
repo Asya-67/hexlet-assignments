@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 // BEGIN
-import io.hexlet.blog.component.RsaKeyProperties;
+import exercise.component.RsaKeyProperties;
 
 @Configuration
 public class EncodersConfig {
