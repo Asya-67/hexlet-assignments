@@ -5,6 +5,7 @@ import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import exercise.repository.ArticleRepository;
 
 @Component
 public class UserUtils {

@@ -18,8 +18,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 // BEGIN
-import exercise.component.RsaKeyProperties;
-
 @Configuration
 public class EncodersConfig {
 
