@@ -5,7 +5,6 @@ import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import exercise.repository.ArticleRepository;
 
 @Component
 public class UserUtils {
@@ -14,7 +13,7 @@ public class UserUtils {
 
     // BEGIN
     @Autowired
-    private ArticleRepository articleRepository;
+    private PostRepository postRepository;
 
     public User getCurrentUser() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();

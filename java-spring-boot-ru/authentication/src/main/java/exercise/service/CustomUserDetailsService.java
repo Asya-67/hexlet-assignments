@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import exercise.model.User;
 
 // BEGIN
+import io.hexlet.model.User;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsManager {
 

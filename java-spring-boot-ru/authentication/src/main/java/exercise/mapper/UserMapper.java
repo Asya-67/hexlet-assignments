@@ -12,47 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper(
-        componentModel = MappingConstants.ComponentModel.SPRING,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public abstract class UserMapper {
 
     @Autowired
-    protected PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-    @Mapping(target = "passwordDigest", ignore = true) // будем шифровать вручную
-    @Mapping(target = "username", source = "email")
+
     public abstract User map(UserCreateDTO dto);
 
-    @Mapping(target = "username", source = "email")
-    @Mapping(target = "passwordDigest", ignore = true)
-    public abstract User map(UserDTO dto);
+    public abstract UserDTO map(User model);
 
-    @Mapping(target = "email", source = "username")
-    public abstract UserDTO map(User user);
-
-    /**
-     * Обновление сущности User из DTO UserDTO.
-     * Пароль обновляется отдельно (если нужно).
-     */
-    public void update(UserDTO dto, @MappingTarget User entity) {
-        if (dto == null) {
-            return;
-        }
-        map(dto, entity);
-    }
-
-    protected abstract void map(UserDTO dto, @MappingTarget User entity);
-
-    /**
-     * Метод для создания пользователя с хешированием пароля.
-     */
-    public User mapWithEncodedPassword(UserCreateDTO dto) {
-        User user = map(dto);
-        if (dto.getPassword() != null) {
-            user.setPasswordDigest(passwordEncoder.encode(dto.getPassword()));
-        }
-        return user;
+    @BeforeMapping
+    public void encryptPassword(UserCreateDTO data) {
+        var password = data.getPasswordDigest();
+        data.setPasswordDigest(passwordEncoder.encode(password));
     }
 }

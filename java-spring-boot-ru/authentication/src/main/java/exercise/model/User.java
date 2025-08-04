@@ -41,6 +41,7 @@ public class User implements BaseEntity, UserDetails {
     private String name;
 
     @Email
+    @ToString.Include
     @Column(unique = true)
     private String email;
 
@@ -54,10 +55,8 @@ public class User implements BaseEntity, UserDetails {
     private List<Article> articles = new ArrayList<>();
 
     // BEGIN
-    @Override
-    public String getUsername() {
-        return email;
-    }
+    @LastModifiedDate
+    private LocalDate updatedAt;
 
     @Override
     public String getPassword() {
@@ -65,8 +64,18 @@ public class User implements BaseEntity, UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
+        return new ArrayList<GrantedAuthority>();
     }
 
     @Override
@@ -83,10 +92,5 @@ public class User implements BaseEntity, UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-// END
+    // END
 }
