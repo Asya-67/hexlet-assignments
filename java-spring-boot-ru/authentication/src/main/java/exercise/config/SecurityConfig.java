@@ -33,7 +33,7 @@ public class SecurityConfig {
 
     @Autowired
     private CustomUserDetailsService userService;
-    
+
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         var builder = http.getSharedObject(AuthenticationManagerBuilder.class);

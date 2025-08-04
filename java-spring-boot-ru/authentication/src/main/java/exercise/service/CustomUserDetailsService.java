@@ -9,7 +9,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 // BEGIN
-import io.hexlet.model.User;
+import exercise.model.User;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsManager {
