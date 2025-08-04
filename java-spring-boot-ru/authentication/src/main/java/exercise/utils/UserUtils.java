@@ -26,7 +26,7 @@ public class UserUtils {
     }
 
     public boolean isAuthor(long postId) {
-        var postAuthorEmail = postRepository.findById(postId).get().getAuthor().getEmail();
+        var postAuthorEmail = articleRepository.findById(postId).get().getAuthor().getEmail();
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         return postAuthorEmail.equals(authentication.getName());
     }

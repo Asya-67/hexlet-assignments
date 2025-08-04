@@ -33,6 +33,7 @@ dependencies {
     implementation("org.openapitools:jackson-databind-nullable:0.2.6")
 
     // BEGIN
+    testImplementation ("org.springframework.security:spring-security-test")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation ("org.springframework.security:spring-security-config")
 
